@@ -3,9 +3,10 @@ import { StyleSheet, View, Pressable, Text, Alert } from 'react-native';
 import MapView, { Marker, Callout } from 'react-native-maps';
 import * as Clipboard from 'expo-clipboard';
 import * as Location from 'expo-location';
+import {API_KEY} from "@env";
 
 export default function Map() {
-  const initial = {
+  const initial = {   //kartan koordinaatit
     latitude: 61.92411,
     longitude: 25.748151,
     latitudeDelta: 0.3000,
@@ -13,10 +14,11 @@ export default function Map() {
   };
   const [tracks, setTracks] = useState([]);
   const [region, setRegion] = useState(initial);
-  const [location, setLocation] = useState(null); // State where location is saved
+  const [location, setLocation] = useState(null); 
   const [lat, setLat] = useState('');
   const [lon, setLon] = useState('');
 
+  // sijainnin haku kartalle
   const getLocation = async () => {
 
     let { status } = await Location.requestForegroundPermissionsAsync();
@@ -36,8 +38,9 @@ export default function Map() {
     getCoordinates;
   }
 
+  // ratojen haku kartalle
   const getCoordinates = async () => {  
-    const url = 'https://maps.googleapis.com/maps/api/place/nearbysearch/json?keyword=frisbeegolf&location=' + lat + '%2C' + lon + '&radius=50000&key=AIzaSyAAdxNfFmOb50zzX8KfRRE4608avohVwPQ';
+    const url = 'https://maps.googleapis.com/maps/api/place/nearbysearch/json?keyword=frisbeegolf&location=' + lat + '%2C' + lon + '&radius=50000&key=' + API_KEY;
 
     try {
       const response = await fetch(url);

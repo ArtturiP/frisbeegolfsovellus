@@ -14,6 +14,7 @@ export default function Results() {
   const [trackday, setTrackday] = useState([]);
   const [modalVisible, setModalVisible] = useState(false);
 
+  //sqlite tapahtumia
   useEffect(() => {
     db.transaction(tx => {
       tx.executeSql('create table if not exists trackday (id integer primary key not null, track text, par int, throws int, score int);');
@@ -42,7 +43,7 @@ export default function Results() {
       }, null, updateList)
   }
 
-  const listSeparator = () => {
+  const listSeparator = () => {   //rajat listan objekteille
     return (
       <View
         style={{
